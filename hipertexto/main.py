@@ -119,15 +119,19 @@ def build():
         sys.exit(1)
 
     # Styles and Static content should be on public
-    for dir in [
+    for dir_path in [
         directories['styles'],
         directories['static'],
     ]:
-        shutil.copytree(
-            src=dir,
-            dst=directories['public'] / dir.name,
-            dirs_exist_ok=True,
-        )
+        if not dir_path.is_dir():
+            continue
+
+        for item in dir_path.iterdir():
+            dest_path = directories['public'] / item.name
+            if item.is_dir():
+                shutil.copytree(item, dest_path, dirs_exist_ok=True)
+            else:
+                shutil.copy2(item, dest_path)
 
     env = Environment(loader=FileSystemLoader(directories['templates']))
     env.globals['rel_path'] = rel_path

@@ -1,4 +1,5 @@
 import locale
+import os
 
 import pytest
 from rich.text import Text
@@ -110,3 +111,15 @@ def test_build_full_hipertexto_project_ok(
 
     assert not result
     assert 'Site built successfully' in capsys.readouterr().out
+
+
+def test_build_copies_static_and_styles_content_directly(
+    full_hipertexto_project, monkeypatch
+):
+    monkeypatch.chdir(full_hipertexto_project)
+    app('build')
+
+    assert os.path.exists('public/lighthouse.jpg')
+    assert os.path.exists('public/style.css')
+    assert not os.path.exists('public/static')
+    assert not os.path.exists('public/styles')

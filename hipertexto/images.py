@@ -35,9 +35,7 @@ def copy_images_and_update_path(
             ('../' * folders_to_go_up) if folders_to_go_up > 0 else './'
         )
 
-        new_image_path = (
-            f'{relative_path_to_root}{public_static_dir.name}/{img_file.name}'
-        )
+        new_image_path = f'{relative_path_to_root}{img_file.name}'
         no_frontmatter_content = no_frontmatter_content.replace(
             (str(img_path)), new_image_path
         )
