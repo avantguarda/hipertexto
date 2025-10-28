@@ -7,9 +7,9 @@ from hipertexto import __version__
 from hipertexto.main import app
 
 
-def test_start(temp_dir, monkeypatch, capsys: pytest.CaptureFixture):
+def test_init(temp_dir, monkeypatch, capsys: pytest.CaptureFixture):
     monkeypatch.chdir(temp_dir)
-    result = app('start project')
+    result = app('init project')
 
     output = Text.from_ansi(capsys.readouterr().out).plain
 
@@ -17,14 +17,14 @@ def test_start(temp_dir, monkeypatch, capsys: pytest.CaptureFixture):
     assert 'Project project created successfully' == output
 
 
-def test_start_project_already_exists(
+def test_init_project_already_exists(
     temp_dir, monkeypatch, capsys: pytest.CaptureFixture
 ):
     monkeypatch.chdir(temp_dir)
 
-    app('start project')
+    app('init project')
     with pytest.raises(SystemExit) as e:
-        app('start project')
+        app('init project')
 
     assert e.value.code == 1
     assert 'File project already exists' in capsys.readouterr().err
@@ -47,7 +47,7 @@ def test_build_empty_project(
 ):
     monkeypatch.chdir(temp_dir)
 
-    app('start project')
+    app('init project')
 
     monkeypatch.chdir('project')
     with pytest.raises(SystemExit) as e:
@@ -64,7 +64,7 @@ def test_build_hipertexto_table_not_found_in_config_toml(
     temp_dir, monkeypatch, capsys: pytest.CaptureFixture
 ):
     monkeypatch.chdir(temp_dir)
-    app('start project')
+    app('init project')
 
     monkeypatch.chdir('project')
 

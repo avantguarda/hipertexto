@@ -57,8 +57,8 @@ def validate_hipertexto_project():
 
 
 @app.command()
-def start(name: str):
-    """Start a new project"""
+def init(name: str):
+    """Create a new project"""
 
     project_dir = Path(name)
     try:
