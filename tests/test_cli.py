@@ -1,5 +1,5 @@
 import locale
-import os
+from pathlib import Path
 
 import pytest
 from rich.text import Text
@@ -119,7 +119,9 @@ def test_build_copies_static_and_styles_content_directly(
     monkeypatch.chdir(full_hipertexto_project)
     app('build')
 
-    assert os.path.exists('public/lighthouse.jpg')
-    assert os.path.exists('public/style.css')
-    assert not os.path.exists('public/static')
-    assert not os.path.exists('public/styles')
+    public = Path("public")
+
+    assert (public / "lighthouse.jpg").exists()
+    assert (public / "style.css").exists()
+    assert not (public / "static").exists()
+    assert not (public / "styles").exists()
