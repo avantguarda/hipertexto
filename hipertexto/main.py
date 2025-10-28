@@ -119,10 +119,10 @@ def build():
         sys.exit(1)
 
     # Styles and Static content should be on public
-    for dir_path in [
+    for dir_path in {
         directories['styles'],
         directories['static'],
-    ]:
+    }:
         if not dir_path.is_dir():
             continue
 
