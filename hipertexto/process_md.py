@@ -39,7 +39,7 @@ def process_markdown(
     page = frontmatter.load(file)
     validate_frontmatter(page, file)
     corrected_content = copy_images_and_update_path(
-        content_dir, public_dir / 'static', file, root_dir, page.content
+        content_dir, public_dir, file, root_dir, page.content
     )
 
     html = markdown(corrected_content)
